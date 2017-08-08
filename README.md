@@ -123,11 +123,18 @@ Individual team members can obtain extra credit (to offset a poor mark in a prev
 ### Group Work Division
 
 Shubham – RandomPlayer, MemoryPlayer
+
 Sahil – MindTheEights
+
 Dave – ExtraCards
+
 Murfy – DiscardHighPoints
+
 Maha – HamperLeader or MemoryPlayer
 
+
 Extra Credit: 
+
 -Create an interesting (non-trivial) player
+
 	-//will see if have time
