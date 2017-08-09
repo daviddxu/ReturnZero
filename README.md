@@ -130,7 +130,7 @@ Dave – ExtraCards
 
 Murfy – DiscardHighPoints
 
-Maha – HamperLeader or MemoryPlayer
+Someone – HamperLeader
 
 
 Extra Credit: 
