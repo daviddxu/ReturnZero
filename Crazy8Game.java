@@ -59,12 +59,14 @@ public class Crazy8Game{
 int count = 0;
 
   while( !win ){
-System.out.println("count: " + count);    
-   
 
+   
+/**TESTING ONLY STARTS**/
 while(drawPile.isEmpty() != true){
       discardPile.add(drawPile.pop());
 }
+/**TESTING ONLY ENDS**/
+
  //  player = (player + 1) % players.length;
 /*   System.out.println("player " + player);
    System.out.println("draw pile    : " + drawPile.peek() );
@@ -79,40 +81,24 @@ while(drawPile.isEmpty() != true){
 
    /*shuffle start*/
    if(drawPile.size() == 0){
-     
-   //  System.out.println("now shuffling");
+    
    Stack <Card> top = new Stack <Card>();
-   Stack <Card> temp = new Stack <Card>();
  
    // saves top of discard pile
    top.add(discardPile.pop());
    System.out.println("top: " + top);
- /*  while(discardPile.isEmpty() != true){     
-     drawPile.push(discardPile.pop());
-   }
-   */
-//  System.out.println("draw pile: ");
-  
- /* while(drawPile.isEmpty() != true){
-    
-    System.out.println(drawPile.pop());
-    
-  }*/
-   
+ 
   Card [] shuffle_temp = new Card[discardPile.size()];
   int i = 0;
   while(discardPile.isEmpty() != true){
-
     shuffle_temp[i] = discardPile.pop();
-    i++;
-    
+    i++;  
   }
-System.out.println("printing unshuffled array");
-  for(i = 0; i < shuffle_temp.length; i++){
-    
-   System.out.println(shuffle_temp[i]); 
-    
-  }
+
+  //add top back to the discard pil
+  discardPile.add(top.pop());
+  
+  //shuffling
   Card shuffle;
    for( i = shuffle_temp.length-1; i>=0; i=i-1){
    int position = rnd.nextInt(i+1);
@@ -120,24 +106,16 @@ System.out.println("printing unshuffled array");
    shuffle_temp[position] = shuffle_temp[i];
    shuffle_temp[i] = shuffle;
   }  
-  System.out.println("priniting shuffled array");
-  for(int l = 0; l < shuffle_temp.length; l++){
-   System.out.println(shuffle_temp[l]);
-    
-  }
-  System.out.println("drawPile size : " + drawPile.size());
-  for(int k = 0; k < shuffle_temp.length; k++){
-    System.out.println("copying back");
-   drawPile.add(shuffle_temp[k]); 
-  }
-  System.out.println("draw pile size: " + drawPile.size());
-  System.out.println("peeking draw pile");
   
-  System.out.println(drawPile.peek());
+//copying back to the draw pile
+  for(int k = 0; k < shuffle_temp.length; k++){
+  drawPile.add(shuffle_temp[k]); 
+  }
+  
+ 
    }
-       
-//count++;
-break;
+      
+//break;
   }
   
   /*shuffle end*/
