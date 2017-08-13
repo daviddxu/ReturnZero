@@ -4,50 +4,34 @@ import java.util.Stack;
 import java.util.Random;
 
 public class Crazy8Game{
- 
-  public static Card[] shuffle(Card[] deck){
-    
-  Random rnd = new Random();
-  Card swap;
-  for(int i = deck.length-1; i>=0; i=i-1){
-   int pos = rnd.nextInt(i+1);
-   swap = deck[pos];
-   deck[pos] = deck[i];
-   deck[i] = swap;
-  }  
-    
-  return deck;
-  }
   
-  public static Card[] deck_init(){
-  Card[] deck = new Card[52];  
-  int index = 0;
-  for(int r=2; r<=14; r+=1){
-   for(int s=0; s<4; s+=1){
-    deck[index++] = new Card(Card.SUITS[s], Card.RANKS[r]);
-   }
-  }
-  return deck;
-  }
-   
+  public static int numPlayers = 3;
+  
  public static void main(String[] args){
  
    Random rand = new Random();
+   Game game = new Game();
   /* create the deck */
   Card[] deck = new Card[52]; 
-  deck = deck_init();  
+  deck = game.deck_init();  
   /* shuffle the deck */
-  deck = shuffle(deck);
+  deck = game.shuffle(deck);
  
  
   
   /* players in the game */
-  Player[] players = new Player[3];
-  players[0] = new ExtraCards( Arrays.copyOfRange(deck, 0, 5) );
+  Player[] players = new Player[numPlayers];
+  int[] scoreboard = new int[numPlayers];
+  
+  for(int p = 0; p < scoreboard.length; p++){
+    
+   scoreboard[p] = 0; 
+  }
+  players[0] = new BadPlayer( Arrays.copyOfRange(deck, 0, 5) );
   System.out.println("0 : " + Arrays.toString( Arrays.copyOfRange(deck, 0, 5))); 
   players[1] = new ExtraCards( Arrays.copyOfRange(deck, 5, 10) );
   System.out.println("0 : " + Arrays.toString( Arrays.copyOfRange(deck, 5, 10))); 
-   players[2] = new ExtraCards( Arrays.copyOfRange(deck, 10, 15) );
+   players[2] = new BadPlayer( Arrays.copyOfRange(deck, 10, 15) );
   System.out.println("0 : " + Arrays.toString( Arrays.copyOfRange(deck, 10, 15))); 
    
   
@@ -70,9 +54,8 @@ public class Crazy8Game{
   
 int count = 0;
 
-  while( !win ){
+  while(!win ){
 
-   
 /**TESTING ONLY STARTS**/
 /*while(drawPile.isEmpty() != true){
       discardPile.add(drawPile.pop());
@@ -127,10 +110,18 @@ int count = 0;
 
 
    }
-
-   
+}
+  
   System.out.println("winner is player " + player);
+   scoreboard = game.score(scoreboard, player);
+  
+    for(int i = 0; i < scoreboard.length; i++){
+    
+   System.out.println("Score for: " + i + " " + scoreboard[i]); 
+   
+  }
+  
   
  }
- 
 }
+ 
