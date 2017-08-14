@@ -1,4 +1,9 @@
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Stack;
+import java.util.Random;
+
 
 /*
  * Implements the procedures from Crazy8Game in a separate class (creating a deck, shuffling and keeping score)
@@ -35,9 +40,28 @@ public class Game{
   
   /*Score keeping*/
   
-  public int [] score(int [] players, int winning_player){
-    
+  public int [] score(int [] players, int winning_player){    
     players[winning_player]++;
     return players;
+  }
+  
+  /*Recycling cards*/ 
+  public Card [] recycle(DiscardPile discardPile){
+    
+    
+  Random rand = new Random();
+    
+    Card [] recycled = new Card[discardPile.size()];
+    int i = 0;
+  
+    while(discardPile.isEmpty() != true){
+    recycled[i] = discardPile.pop();
+    i++;  
+  }
+    
+    recycled = shuffle(recycled);
+     
+    
+  return recycled;  
   }
 }
