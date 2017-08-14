@@ -30,6 +30,11 @@ public class DiscardPile{
   return cards.size(); 
  }
  
+ public void clear(){
+   
+  cards.clear(); 
+ }
+ 
  //@Override
  public boolean isEmpty(){
   return cards.isEmpty();
