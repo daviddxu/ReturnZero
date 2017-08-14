@@ -27,11 +27,12 @@ public class Crazy8Game{
     
    scoreboard[p] = 0; 
   }
-  players[0] = new BadPlayer( Arrays.copyOfRange(deck, 0, 5) );
+  
+  players[0] = new ExtraCards( Arrays.copyOfRange(deck, 0, 5) );
   System.out.println("0 : " + Arrays.toString( Arrays.copyOfRange(deck, 0, 5))); 
   players[1] = new ExtraCards( Arrays.copyOfRange(deck, 5, 10) );
   System.out.println("0 : " + Arrays.toString( Arrays.copyOfRange(deck, 5, 10))); 
-   players[2] = new BadPlayer( Arrays.copyOfRange(deck, 10, 15) );
+   players[2] = new ExtraCards( Arrays.copyOfRange(deck, 10, 15) );
   System.out.println("0 : " + Arrays.toString( Arrays.copyOfRange(deck, 10, 15))); 
    
   
@@ -63,7 +64,7 @@ int count = 0;
 /**TESTING ONLY ENDS**/
 
    player = (player + 1) % players.length;
-//   System.out.println("player " + player);
+   System.out.println("player " + player);
   // System.out.println("draw pile    : " + drawPile.peek() );
   // System.out.println("discard pile : " + discardPile.top() );
 
@@ -74,7 +75,7 @@ int count = 0;
 
    /*shuffle start*/
   System.out.println("draw pile size: " + drawPile.size());
- 
+
     if(drawPile.size() == 0){
      System.out.println("recycling cards");
    
@@ -84,30 +85,22 @@ int count = 0;
    top.add(discardPile.pop());
  //  System.out.println("top: " + top);
  
-  Card [] shuffle_temp = new Card[discardPile.size()];
-  int i = 0;
-  while(discardPile.isEmpty() != true){
-    shuffle_temp[i] = discardPile.pop();
-    i++;  
-  }
-
-  //add top back to the discard pil
+  Card [] recycled_cards = new Card[discardPile.size()];
+  
+  recycled_cards = game.recycle(discardPile);
+  
+  //clear discard pile
+  discardPile.clear();
+  
+  //add top back to the discard pile
   discardPile.add(top.pop());
   
   //shuffling
-  Card shuffle;
-   for( i = shuffle_temp.length-1; i>=0; i=i-1){
-   int position = rand.nextInt(i+1);
-   shuffle = shuffle_temp[position];
-   shuffle_temp[position] = shuffle_temp[i];
-   shuffle_temp[i] = shuffle;
-  }  
-  
-//copying back to the draw pile
-  for(int k = 0; k < shuffle_temp.length; k++){
-  drawPile.add(shuffle_temp[k]); 
-  }
 
+//copying back to the draw pile
+  for(int k = 0; k < recycled_cards.length; k++){
+  drawPile.add(recycled_cards[k]); 
+  }
 
    }
 }
