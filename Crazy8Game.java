@@ -28,11 +28,11 @@ public class Crazy8Game{
    scoreboard[p] = 0; 
   }
   
-  players[0] = new ExtraCards( Arrays.copyOfRange(deck, 0, 5) );
+  players[0] = new MindTheEights( Arrays.copyOfRange(deck, 0, 5) );
   System.out.println("0 : " + Arrays.toString( Arrays.copyOfRange(deck, 0, 5))); 
-  players[1] = new ExtraCards( Arrays.copyOfRange(deck, 5, 10) );
+  players[1] = new MindTheEights( Arrays.copyOfRange(deck, 5, 10) );
   System.out.println("0 : " + Arrays.toString( Arrays.copyOfRange(deck, 5, 10))); 
-   players[2] = new ExtraCards( Arrays.copyOfRange(deck, 10, 15) );
+   players[2] = new MindTheEights( Arrays.copyOfRange(deck, 10, 15) );
   System.out.println("0 : " + Arrays.toString( Arrays.copyOfRange(deck, 10, 15))); 
    
   
@@ -43,7 +43,7 @@ public class Crazy8Game{
    drawPile.push(deck[i]);
   }
   
-  System.out.println("draw pile is : " + Arrays.toString( Arrays.copyOfRange(deck, 15, deck.length) ));
+//  System.out.println("draw pile is : " + Arrays.toString( Arrays.copyOfRange(deck, 15, deck.length) ));
   
   deck = null;  
   
@@ -64,17 +64,15 @@ int count = 0;
 /**TESTING ONLY ENDS**/
 
    player = (player + 1) % players.length;
-   System.out.println("player " + player);
+  // System.out.println("player " + player);
   // System.out.println("draw pile    : " + drawPile.peek() );
   // System.out.println("discard pile : " + discardPile.top() );
 
   win = people.get(player).play(discardPile, drawPile, people);
 
-//  System.out.println("draw pile   : " + drawPile.peek() );
-//   System.out.println("discard pile : " + discardPile.top() );
 
    /*shuffle start*/
-  System.out.println("draw pile size: " + drawPile.size());
+ // System.out.println("draw pile size: " + drawPile.size());
 
     if(drawPile.size() == 0){
      System.out.println("recycling cards");
@@ -89,6 +87,7 @@ int count = 0;
   
   recycled_cards = game.recycle(discardPile);
   
+
   //clear discard pile
   discardPile.clear();
   
@@ -103,14 +102,19 @@ int count = 0;
   }
 
    }
-}
+
+//   System.out.println("draw pile   : " + drawPile.peek() );
+ //  System.out.println("discard pile : " + discardPile.top());
+   
+    
+  }
   
-  System.out.println("winner is player " + player);
+//  System.out.println("winner is player " + player);
    scoreboard = game.score(scoreboard, player);
   
     for(int i = 0; i < scoreboard.length; i++){
     
-   System.out.println("Score for: " + i + " " + scoreboard[i]); 
+ //  System.out.println("Score for: " + i + " " + scoreboard[i]); 
    
   }
   
