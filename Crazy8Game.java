@@ -6,9 +6,10 @@ import java.util.Random;
 public class Crazy8Game{
   
   public static int numPlayers = 3;
+    public static boolean checker_2 = true;
   
  public static void main(String[] args){
- 
+
    Random rand = new Random();
    Game game = new Game();
   /* create the deck */
@@ -32,7 +33,7 @@ public class Crazy8Game{
   System.out.println("0 : " + Arrays.toString( Arrays.copyOfRange(deck, 0, 5))); 
   players[1] = new MindTheEights( Arrays.copyOfRange(deck, 5, 10) );
   System.out.println("0 : " + Arrays.toString( Arrays.copyOfRange(deck, 5, 10))); 
-   players[2] = new MindTheEights( Arrays.copyOfRange(deck, 10, 15) );
+   players[2] = new ExtraCards( Arrays.copyOfRange(deck, 10, 15) );
   System.out.println("0 : " + Arrays.toString( Arrays.copyOfRange(deck, 10, 15))); 
    
   
