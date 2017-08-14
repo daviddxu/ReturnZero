@@ -73,9 +73,9 @@ int count = 0;
 
 
    /*shuffle start*/
- // System.out.println("draw pile size: " + drawPile.size());
+// System.out.println("draw pile size: " + drawPile.size());
 
-    if(drawPile.size() == 0){
+    if(drawPile.size() <= 2){
      System.out.println("recycling cards");
    
    Stack <Card> top = new Stack <Card>();
