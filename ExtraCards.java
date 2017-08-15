@@ -19,18 +19,49 @@
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.HashMap;
 
 public class ExtraCards extends Player{
+  
+  
+  public String wildEight(){
+    
+  HashMap<String, Integer> suits = new HashMap<String, Integer>();
+    
+  String suit = null;
+  String maxsuit = null;
+  int count = 0;
+  int maxcount = -1;
+  for(int i = 0; i < this.hand.size(); i++){
+    if(suits.containsKey(this.hand.get(i).getSuit())){
+      suits.put(this.hand.get(i).getSuit(), suits.get(this.hand.get(i).getSuit()+1));
+    }else{
+         suits.put(this.hand.get(i).getSuit(), 1);
+    }
+  }
+    for(int i = 0; i < this.hand.size(); i++){
+     suit = this.hand.get(i).getSuit();
+     count = suits.get(suit);
+     if(count > maxcount){
+       maxsuit = suit;
+       maxcount = count;
+     }   
+    }  
+     return maxsuit;
+       
+  }
   
    public ExtraCards(Card[] cards){this.hand = new ArrayList<Card>(Arrays.asList(cards));}
  
    public boolean play(DiscardPile discardPile, Stack<Card> drawPile, ArrayList<Player> players){
       
+     Card add = null;
      boolean breaker = false;
      Card addedCard;
     //check if neighbours have only one card left (late stage of the game)
 //     System.out.println("this here ran");
      for(int i = 0; i < players.size(); i++){
+     //  System.out.println("i: " + i);
        if(players.get(i).getSizeOfHand() == 1){                           
         //check if your hand has any power cards
          for(int j = 0; j < this.hand.size(); j++){
@@ -41,7 +72,7 @@ public class ExtraCards extends Player{
          }
         
          if(breaker == true){
- //          System.out.println("breaker true");
+    //       System.out.println("breaker true");
           break; 
          }        
            while(drawPile.size() > 0){         
@@ -66,17 +97,24 @@ public class ExtraCards extends Player{
      
      //play card
        for(int k = 0; k < this.hand.size(); k++){   
-      //   System.out.println("rank: " + this.hand.get(k).getRank());
-      //   System.out.println("suit: " + this.hand.get(k).getSuit());
-           
+   //      System.out.println("rank: " + this.hand.get(k).getRank());
+     //    System.out.println("suit: " + this.hand.get(k).getSuit());
+           System.out.println("EC hand: " + this.hand.toString());
          if(this.hand.get(k).getRank() == discardPile.top().getRank() || this.hand.get(k).getSuit() == discardPile.top().getSuit()){
-     //   System.out.println("playing card");
-           discardPile.add(this.hand.remove(k)); 
+       System.out.println("playing card");
+       System.out.println("k: " + k);
+       add = this.hand.remove(k);
+       System.out.println("add: " + add);
+       if(add != null){
+         System.out.println("adding");
+           discardPile.add(add); 
+           break;
+       }
          }
 //       System.out.println("this ran");
        }
 //     System.out.println("now this ran");
-//     System.out.println("hand size: " + this.hand.size());
+   //  System.out.println("hand size: " + this.hand.size());
      if (this.hand.size() == 0){
       return true; 
      } 
