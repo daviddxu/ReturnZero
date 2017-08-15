@@ -2,14 +2,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 import java.util.Random;
+import java.util.Collections;
 
 public class Crazy8Game{
   
   public static int numPlayers = 3;
-    public static boolean checker_2 = true;
+
+  public static Player[] reverse(Player[] players){
+    System.out.println("Reversal.");
+    Player[] temp = new Player[players.length];
+    int n = 0;
+    for(int i = players.length - 1; i>0; i--){
+      temp[n] = players[i];
+      n++;
+    }
+    return temp;
+  }
   
  public static void main(String[] args){
-
+ 
    Random rand = new Random();
    Game game = new Game();
   /* create the deck */
@@ -44,7 +55,7 @@ public class Crazy8Game{
    drawPile.push(deck[i]);
   }
   
-//  System.out.println("draw pile is : " + Arrays.toString( Arrays.copyOfRange(deck, 15, deck.length) ));
+  System.out.println("draw pile is : " + Arrays.toString( Arrays.copyOfRange(deck, 15, deck.length) ));
   
   deck = null;  
   
@@ -55,6 +66,11 @@ public class Crazy8Game{
   discardPile.add( drawPile.pop() );
   
 int count = 0;
+boolean direc = false;
+int dir = 1;
+int countPrev = 0;
+String currentSuit = "";
+
 
   while(!win ){
 
@@ -64,16 +80,35 @@ int count = 0;
 }*/
 /**TESTING ONLY ENDS**/
 
-   player = (player + 1) % players.length;
-  // System.out.println("player " + player);
-  // System.out.println("draw pile    : " + drawPile.peek() );
-  // System.out.println("discard pile : " + discardPile.top() );
+
+    // -7- Played: Change of directional play
+    if(count > countPrev && (!discardPile.top().getSuit().equals(currentSuit))){
+      Player.checker_7 = true;
+    }
+
+    if(discardPile.top().getRank() == 7 && Player.checker_7 == true){
+      currentSuit = discardPile.top().getSuit();
+      dir = -dir;
+      System.out.println("----------------------------------Direction changed");
+      Player.checker_7 = !(Player.checker_7);
+      countPrev = count;
+    }
+    if(dir == -1 && (player == -1 || player == 0)){
+      player = players.length;
+      count++;
+    }
+
+   //System.out.println("player variable: "+ player);
+   player = (player + dir) % players.length;
+   System.out.println("player " + player);
+   System.out.println("draw pile    : " + drawPile.peek() );
+   System.out.println("discard pile : " + discardPile.top() );
 
   win = people.get(player).play(discardPile, drawPile, people);
 
 
-   /*shuffle start*/
-// System.out.println("draw pile size: " + drawPile.size());
+
+
 
     if(drawPile.size() <= 2){
      System.out.println("recycling cards");
@@ -88,7 +123,6 @@ int count = 0;
   
   recycled_cards = game.recycle(discardPile);
   
-
   //clear discard pile
   discardPile.clear();
   
@@ -103,19 +137,22 @@ int count = 0;
   }
 
    }
+   System.out.println("draw pile   : " + drawPile.peek() );
+   System.out.println("discard pile : " + discardPile.top() );
+      /*shuffle start*/
+  System.out.println("-----------------------");
 
-//   System.out.println("draw pile   : " + drawPile.peek() );
- //  System.out.println("discard pile : " + discardPile.top());
-   
-    
-  }
+  System.out.println("draw pile size: " + drawPile.size());
+
+  System.out.println("-----------------------");
+}//while loop end
   
-//  System.out.println("winner is player " + player);
+  System.out.println("winner is player " + player);
    scoreboard = game.score(scoreboard, player);
   
     for(int i = 0; i < scoreboard.length; i++){
     
- //  System.out.println("Score for: " + i + " " + scoreboard[i]); 
+   System.out.println("Score for: " + i + " " + scoreboard[i]); 
    
   }
   
