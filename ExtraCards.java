@@ -24,31 +24,34 @@ import java.util.HashMap;
 public class ExtraCards extends Player{
   
   
-  public String wildEight(){
+  public String wildEight(DiscardPile       discardPile, 
+                              Stack<Card>       drawPile, 
+                     ArrayList<Player> players){
     
   HashMap<String, Integer> suits = new HashMap<String, Integer>();
     
-  String suit = null;
-  String maxsuit = null;
+  String suit = "";
+  String maxsuit = "";
   int count = 0;
   int maxcount = -1;
   for(int i = 0; i < this.hand.size(); i++){
     if(suits.containsKey(this.hand.get(i).getSuit())){
-      suits.put(this.hand.get(i).getSuit(), suits.get(this.hand.get(i).getSuit()+1));
+      suits.put(this.hand.get(i).getSuit(), suits.get(this.hand.get(i).getSuit())+1);
     }else{
          suits.put(this.hand.get(i).getSuit(), 1);
     }
   }
     for(int i = 0; i < this.hand.size(); i++){
      suit = this.hand.get(i).getSuit();
+     System.out.println("suit: " + suit);
      count = suits.get(suit);
      if(count > maxcount){
        maxsuit = suit;
        maxcount = count;
      }   
     }  
-     return maxsuit;
-       
+    System.out.println("max suit: " + maxsuit);
+     return maxsuit;       
   }
   
    public ExtraCards(Card[] cards){this.hand = new ArrayList<Card>(Arrays.asList(cards));}
